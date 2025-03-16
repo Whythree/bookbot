@@ -27,4 +27,5 @@ def sort_dictionary(character_dictionary):
         list.append(new_dictionary)
 
     list.sort(key=sort_on, reverse=True)
-    print(list)
+
+    return list
