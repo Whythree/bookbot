@@ -1,4 +1,5 @@
 from stats import count_words,count_characters,sort_dictionary
+import sys
 
 
 def get_book_text(path_to_file):
@@ -6,32 +7,35 @@ def get_book_text(path_to_file):
         file_content = f.read()
         return file_content
 
-def print_report():
+def print_report(path_to_file):
+    character_dictionary = count_characters(get_book_text(path_to_file))
+    sorted_characters = sort_dictionary(character_dictionary)
+
     print("============ BOOKBOT ============")
-    print("Analyzing book found at books/frankenstein.txt...")
+    print(f"Analyzing book found at {path_to_file}...")
     print("----------- Word Count ----------")
-    print(f"{count_words(get_book_text('./books/frankenstein.txt'))} words found in the document.")
+    print(f"Found {count_words(get_book_text(path_to_file))} total words")
     print("----------- Character Count ----------")
 
+    for characters in sorted_characters:
+        dict_key = next(iter(characters))
+        dict_value = characters[dict_key]
+
+        if dict_key.isalpha():
+            print(f"{dict_key}: {dict_value}")
+
+    print("============= END ===============")
 
 def main():
-    print_report()
-    character_dictionary = count_characters(get_book_text('./books/frankenstein.txt'))
-    sorted_characters = sort_dictionary(character_dictionary)
-    print(sorted_characters)
-    # wie komme ich nun an das erste key value pair davon?
-    for characters in sorted_characters:
-        pass
+    print(sys.argv)
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    print_report(sys.argv[1])
 
 
-    # This is the answer?
-   # list_of_dicts = [{'key1': 'value1', 'key2': 'value2'}, {'key3': 'value3', 'key4': 'value4'}]
 
-    #for my_dict in list_of_dicts:
-     #   first_key = next(iter(my_dict))
-      #  first_value = my_dict[first_key]
-       # print(f"Key: {first_key}, Value: {first_value}")
-        #break  # If you only want the first key-value pair from the first di
 
 main()
 
