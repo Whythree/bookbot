@@ -14,3 +14,17 @@ def count_characters(text):
             character_frequency[lower_case_character] = 1
 
     return character_frequency
+
+def sort_on(dictionary):
+    return dictionary["num"]
+
+def sort_dictionary(character_dictionary):
+    list = []
+    for key in character_dictionary:
+        num = character_dictionary[key]
+        new_dictionary = {key:character_dictionary[key],"num":num}
+
+        list.append(new_dictionary)
+
+    list.sort(key=sort_on, reverse=True)
+    print(list)
